@@ -19,7 +19,7 @@ public class UsuarioServicio implements IUsuarioServicio {
         boolean valido = false;
         if (usuarioRepo.buscarPorUsuario(usuario) != null){
             throw new MiExcepcion("El usuario ya se encuentra registrado");
-        } else if (usuario.length()>=8){
+        } else if (usuario.length()<8){
             throw new MiExcepcion("El usuario debe tener como mínimo 8 caracteres");
         } else {
             valido = true;
