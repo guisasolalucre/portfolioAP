@@ -20,4 +20,7 @@ public class Tecnologia {
     @Column(nullable = false)
     private String nombre;
 
+    public Tecnologia() {
+    }
+
 }

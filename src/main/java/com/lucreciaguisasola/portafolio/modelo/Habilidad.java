@@ -30,4 +30,7 @@ public class Habilidad {
     @JoinColumn(name = "persona_id")
     private Persona persona;
 
+    public Habilidad() {
+    }
+    
 }

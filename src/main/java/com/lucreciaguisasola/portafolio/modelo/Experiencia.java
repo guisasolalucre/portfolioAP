@@ -27,6 +27,9 @@ public class Experiencia {
 
     @Column(nullable = false)
     private String empresa;
+    
+    @Column(nullable = false)
+    private String ubicacion;
 
     @Column(nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -42,5 +45,8 @@ public class Experiencia {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "persona_id")
     private Persona persona;
+
+    public Experiencia() {
+    }
 
 }

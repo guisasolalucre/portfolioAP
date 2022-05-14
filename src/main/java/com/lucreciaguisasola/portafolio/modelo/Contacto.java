@@ -33,6 +33,8 @@ public class Contacto {
     
     @OneToOne(cascade = CascadeType.ALL)
     private Persona persona;
-    
+
+    public Contacto() {
+    }
 
 }

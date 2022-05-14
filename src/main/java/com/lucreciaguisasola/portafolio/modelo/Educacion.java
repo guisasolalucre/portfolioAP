@@ -43,4 +43,6 @@ public class Educacion {
     @JoinColumn(name = "persona_id")
     private Persona persona;
 
+    public Educacion() {
+    }
 }

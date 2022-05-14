@@ -30,6 +30,9 @@ public class Proyecto {
 
     @Column(nullable = false)
     private String link;
+    
+    @Column(nullable = false)
+    private String descripcion;
 
     @Column(nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -47,5 +50,8 @@ public class Proyecto {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "persona_id")
     private Persona persona;
+
+    public Proyecto() {
+    }
 
 }
