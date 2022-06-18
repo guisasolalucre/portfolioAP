@@ -1,6 +1,7 @@
 
 package com.lucreciaguisasola.portafolio.modelo;
 
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,12 +26,11 @@ public class Habilidad {
     
     @Column(nullable = false)
     private Double porcentaje;
-    
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "persona_id")
     private Persona persona;
 
     public Habilidad() {
     }
-    
 }

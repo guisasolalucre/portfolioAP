@@ -1,5 +1,6 @@
 package com.lucreciaguisasola.portafolio.modelo;
 
+
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

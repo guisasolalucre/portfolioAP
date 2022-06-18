@@ -1,21 +1,20 @@
-package com.lucreciaguisasola.portafolio.seguridad.servicios;
+package com.lucreciaguisasola.portafolio.servicios;
 
 import com.lucreciaguisasola.portafolio.excepciones.MiExcepcion;
-import static com.lucreciaguisasola.portafolio.seguridad.RolNombre.INVITADO;
-import com.lucreciaguisasola.portafolio.seguridad.entidades.Usuario;
-import com.lucreciaguisasola.portafolio.seguridad.repositorios.UsuarioRepository;
+import com.lucreciaguisasola.portafolio.modelo.Usuario;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.lucreciaguisasola.portafolio.repositorios.UsuarioRepositorio;
 
 @Service
 @Transactional
-public class UsuarioService {
+public class UsuarioServicio {
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    UsuarioRepositorio usuarioRepository;
 
     private void validar(String username, String password) throws MiExcepcion {
         if (existsByNombUsername(username) || username == null

@@ -31,7 +31,7 @@ public class Contacto {
     @Column(nullable = false)
     private String email;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Persona persona;
 
     public Contacto() {

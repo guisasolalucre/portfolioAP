@@ -1,4 +1,4 @@
-package com.lucreciaguisasola.portafolio.seguridad.entidades;
+package com.lucreciaguisasola.portafolio.modelo;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -27,6 +27,9 @@ public class Usuario {
                 joinColumns = @JoinColumn(name = "usuario_id"),
                 inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private Set<Rol> roles = new HashSet<>();
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    private Persona persona;
 
     public Usuario() {
     }

@@ -1,6 +1,5 @@
-package com.lucreciaguisasola.portafolio.seguridad.entidades;
+package com.lucreciaguisasola.portafolio.modelo;
 
-import com.lucreciaguisasola.portafolio.seguridad.RolNombre;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,7 +15,7 @@ public class Rol {
     
     @NotNull
     @Enumerated(EnumType.STRING)
-    private RolNombre rolNombre;
+    private RolEnum rolNombre;
 
     public Rol() {
     }

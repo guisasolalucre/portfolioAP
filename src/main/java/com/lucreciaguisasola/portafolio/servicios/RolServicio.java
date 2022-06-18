@@ -1,22 +1,22 @@
-package com.lucreciaguisasola.portafolio.seguridad.servicios;
+package com.lucreciaguisasola.portafolio.servicios;
 
-import com.lucreciaguisasola.portafolio.seguridad.entidades.Rol;
-import com.lucreciaguisasola.portafolio.seguridad.RolNombre;
-import com.lucreciaguisasola.portafolio.seguridad.repositorios.RolRepository;
+import com.lucreciaguisasola.portafolio.modelo.Rol;
+import com.lucreciaguisasola.portafolio.modelo.RolEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import com.lucreciaguisasola.portafolio.repositorios.RolRepositorio;
 
 @Service
 @Transactional
-public class RolService {
+public class RolServicio {
 
     @Autowired
-    RolRepository rolRepository;
+    RolRepositorio rolRepository;
 
-    public Optional<Rol> getByRolNombre(RolNombre rolNombre){
+    public Optional<Rol> getByRolNombre(RolEnum rolNombre){
         return rolRepository.findByRolNombre(rolNombre);
     }
 
