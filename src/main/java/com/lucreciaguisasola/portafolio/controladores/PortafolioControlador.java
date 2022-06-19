@@ -1,122 +1,203 @@
 package com.lucreciaguisasola.portafolio.controladores;
 
-import com.lucreciaguisasola.portafolio.modelo.Persona;
 import com.lucreciaguisasola.portafolio.modelo.Educacion;
 import com.lucreciaguisasola.portafolio.modelo.Experiencia;
 import com.lucreciaguisasola.portafolio.modelo.Habilidad;
+import com.lucreciaguisasola.portafolio.modelo.Persona;
 import com.lucreciaguisasola.portafolio.modelo.Proyecto;
-import com.lucreciaguisasola.portafolio.servicios.EducacionServicio;
-import com.lucreciaguisasola.portafolio.servicios.ExperienciaServicio;
-import com.lucreciaguisasola.portafolio.servicios.HabilidadServicio;
-import com.lucreciaguisasola.portafolio.servicios.PersonaServicio;
-import com.lucreciaguisasola.portafolio.servicios.ProyectoServicio;
+import com.lucreciaguisasola.portafolio.servicios.IEducacionServicio;
+import com.lucreciaguisasola.portafolio.servicios.IExperienciaServicio;
+import com.lucreciaguisasola.portafolio.servicios.IHabilidadServicio;
+import com.lucreciaguisasola.portafolio.servicios.IPersonaServicio;
+import com.lucreciaguisasola.portafolio.servicios.IProyectoServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class PortafolioControlador {
-
+    
+    //******************************************************************
+    // PERSONA
     @Autowired
-    PersonaServicio personaServ;
-
-    @Autowired
-    EducacionServicio eduServ;
-
-    @Autowired
-    ExperienciaServicio expServ;
-
-    @Autowired
-    HabilidadServicio habServ;
-
-    @Autowired
-    ProyectoServicio proyServ;
-
-    /* trae la persona
-    debería buscar por el id de la persona que se identifica
-    sirve para tomar los datos de la persona y mostrarlos en el portfolio */
-    @GetMapping("/persona")
-    @ResponseBody
+    private IPersonaServicio personaServ;
+    
+    @GetMapping("/datos")
     public Persona persona() throws Exception {
         long id = 1;
-        return personaServ.buscarPersona(id);
-    }
-
-    /*
-    // traen las distintas listas y mas de la persona
-    @GetMapping("/educacion")
-    @ResponseBody
-    public List<Educacion> educacion() throws Exception {
-        long id = 1;
-        return eduServ.listaEdu(id);
+        return personaServ.buscar(id);
     }
     
-    
-    public List<Experiencia> experiencia() throws Exception {
-        long id = 1;
-        return expServ.listaExp(id);
+    @PostMapping("/nuevaPersona")
+    public void agregarPersona(@RequestBody Persona persona){
+        personaServ.crear(persona);
     }
-    */
+    
+    @DeleteMapping("/eliminarPersona/{id}")
+    public void borrarPersona(@PathVariable Long id){
+        personaServ.borrar(id);
+    }
+    
+    @PutMapping("/editarPersona/{id}")
+    public void editarPersona(@PathVariable Long id,
+                              @RequestBody Persona personaFinal){
+        Persona personaEditar = personaServ.buscar(id);
+        personaEditar.setNombre(personaFinal.getNombre());
+        personaEditar.setApellido(personaFinal.getApellido());
+        personaEditar.setFotoPerfil(personaFinal.getFotoPerfil());
+        personaEditar.setFotoPortada(personaFinal.getFotoPortada());
+        personaEditar.setAcercade(personaFinal.getAcercade());
+        personaEditar.setOcupacion(personaFinal.getOcupacion());
+        personaEditar.setGithub(personaFinal.getGithub());
+        personaEditar.setLinkedin(personaFinal.getLinkedin());
+        personaEditar.setWhatsapp(personaFinal.getWhatsapp());
+        personaEditar.setEmail(personaFinal.getEmail());
+        
+        personaServ.crear(personaEditar);
+    }
     
     
- /*
- 
-	@PostMapping("/registro")
-	public String guardar(ModelMap modelo, @RequestParam String nombre, @RequestParam String apodo, @RequestParam String foto, @RequestParam String raza ) {
-		
-		try {
-			perroService.guardar(nombre, apodo, foto, raza);
-			
-			modelo.put("exito", "Registro exitoso");
-			
-			return "form-perro";
-			
-			
-			
-		} catch (Exception e) {
-			
-			modelo.put("error", "Falto algun dato");
-			return "form-perro";
-		}
-	}
+    //******************************************************************
+    // EDUCACION
+    @Autowired
+    private IEducacionServicio eduServ;
+    
+    @PostMapping("/nuevaEducacion")
+    public void agregarEducacion(@RequestBody Educacion edu){
+        eduServ.crear(edu);
+    }
+    
+    @GetMapping("/verEducacion")
+    public List<Educacion> verEducacion(){
+        return eduServ.lista();
+    }
+    
+    @DeleteMapping("/eliminarEducacion/{id}")
+    public void borrarEducacion(@PathVariable Long id){
+        eduServ.borrar(id);
+    }
+    
+    @PutMapping("/editarEducacion/{id}")
+    public void editarEducacion(@PathVariable Long id,
+                              @RequestBody Educacion eduFinal){
+        Educacion eduEditar = eduServ.buscar(id);
+        eduEditar.setCarrera(eduFinal.getCarrera());
+        eduEditar.setInstitucion(eduFinal.getInstitucion());
+        eduEditar.setInicio(eduFinal.getInicio());
+        eduEditar.setFin(eduFinal.getFin());
+        eduEditar.setUbicacion(eduFinal.getUbicacion());
+        
+        eduServ.crear(eduEditar);
+    }
 
-	@GetMapping("/modificar/{id}") //PATHVARIABLE
-	public String modificar(@PathVariable String id, ModelMap modelo ) {
-            
-		modelo.put("perro", perroService.getOne(id));
-            
-		return "form-perro-modif";
-	}
-	
-	@PostMapping("/modificar/{id}")
-	public String modificar(ModelMap modelo, @PathVariable String id, @RequestParam String nombre, @RequestParam String apodo, @RequestParam String foto, @RequestParam String raza ) {
-		
-		try {
-			perroService.modificar(id,nombre, apodo, foto, raza);
-			modelo.put("exito", "Modificacion exitosa");
-			
-			return "list-perro";
-		} catch (Exception e) {
-			modelo.put("error", "Falto algun dato");   
-			return "form-perro-modif";
-		}
-	}
-	
-	@GetMapping("/lista")
-	public String lista(ModelMap modelo) {
-		
-		List<Perro> perrosLista = perroService.listarTodos();
-		
-		modelo.addAttribute("perros",perrosLista);
+    
+    //******************************************************************
+    // EXPERIENCIA
+    @Autowired
+    private IExperienciaServicio expServ;
+    
+    @PostMapping("/nuevaExperiencia")
+    public void agregarExperiencia(@RequestBody Experiencia exp){
+        expServ.crear(exp);
+    }
+    
+    @GetMapping("/verExperiencia")
+    public List<Experiencia> verExperiencia(){
+        return expServ.lista();
+    }
+    
+    @DeleteMapping("/eliminarExperiencia/{id}")
+    public void borrarExperiencia(@PathVariable Long id){
+        expServ.borrar(id);
+    }
+    
+    @PutMapping("/editarExperiencia/{id}")
+    public void editarExperiencia(@PathVariable Long id,
+                              @RequestBody Experiencia expFinal){
+        Experiencia expEditar = expServ.buscar(id);
+        expEditar.setPuesto(expFinal.getPuesto());
+        expEditar.setEmpresa(expFinal.getEmpresa());
+        expEditar.setInicio(expFinal.getInicio());
+        expEditar.setFin(expFinal.getFin());
+        expEditar.setUbicacion(expFinal.getUbicacion());
+        expEditar.setDescripcion(expFinal.getDescripcion());
+        
+        expServ.crear(expEditar);
+    }
 
-		
-		return "list-perro";
-	}
-     */
+    
+    //******************************************************************
+    //HABILIDAD
+    @Autowired
+    private IHabilidadServicio habServ;
+    
+    @PostMapping("/nuevaHabilidad")
+    public void agregarHabilidad(@RequestBody Habilidad hab){
+        habServ.crear(hab);
+    }
+    
+    @GetMapping("/verHabilidades")
+    public List<Habilidad> verHabilidades(){
+        return habServ.lista();
+    }
+    
+    @DeleteMapping("/eliminarHabilidad/{id}")
+    public void borrarHabilidad(@PathVariable Long id){
+        habServ.borrar(id);
+    }
+    
+    @PutMapping("/editarHabilidad/{id}")
+    public void editarHabilidad(@PathVariable Long id,
+                              @RequestBody Habilidad habFinal){
+        Habilidad habEditar = habServ.buscar(id);
+        habEditar.setHabilidad(habFinal.getHabilidad());
+        habEditar.setPorcentaje(habFinal.getPorcentaje());
+        
+        habServ.crear(habFinal);
+    }
+
+    
+    //******************************************************************
+    // PROYECTO
+    @Autowired
+    private IProyectoServicio proyServ;
+    
+    @PostMapping("/nuevoProyecto")
+    public void agregarProyecto(@RequestBody Proyecto proy){
+        proyServ.crear(proy);
+    }
+    
+    @GetMapping("/verProyectos")
+    public List<Proyecto> verProyectos(){
+        return proyServ.lista();
+    }
+    
+    @DeleteMapping("/eliminarProyecto/{id}")
+    public void borrarProyecto(@PathVariable Long id){
+        proyServ.borrar(id);
+    }
+    
+    @PutMapping("/editarProyecto/{id}")
+    public void editarProyecto(@PathVariable Long id,
+                              @RequestBody Proyecto proyFinal){
+        Proyecto proyEditar = proyServ.buscar(id);
+        proyEditar.setNombre(proyFinal.getNombre());
+        proyEditar.setLink(proyFinal.getLink());
+        proyEditar.setDescripcion(proyFinal.getDescripcion());
+        proyEditar.setInicio(proyFinal.getInicio());
+        proyEditar.setFin(proyFinal.getFin());
+        
+        proyServ.crear(proyFinal);
+    }
+
 }

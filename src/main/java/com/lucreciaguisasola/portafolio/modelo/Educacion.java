@@ -39,10 +39,6 @@ public class Educacion {
     @Column(nullable = true)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fin;
-    
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "persona_id")
-    private Persona persona;
 
     public Educacion() {
     }

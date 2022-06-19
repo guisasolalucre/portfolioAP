@@ -6,19 +6,32 @@ import com.lucreciaguisasola.portafolio.repositorios.ProyectoRepositorio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ProyectoServicio {
+public class ProyectoServicio implements IProyectoServicio {
 
     @Autowired
     ProyectoRepositorio proyRepo;
 
-    /*
-    @Transactional(readOnly = true)
-    public List<Proyecto> listaProy(Long id) throws Exception {
-        return proyRepo.listaProy(id);
+    @Override
+    public List<Proyecto> lista() {
+        return proyRepo.findAll();
     }
-*/
+
+    @Override
+    public void crear(Proyecto exp) {
+        proyRepo.save(exp);
+    }
+
+    @Override
+    public void borrar(Long id) {
+        proyRepo.deleteById(id);
+    }
+
+    @Override
+    public Proyecto buscar(Long id) {
+        return proyRepo.findById(id).orElse(null);
+    }  
+
 
 }

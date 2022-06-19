@@ -6,19 +6,31 @@ import com.lucreciaguisasola.portafolio.repositorios.HabilidadRepositorio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class HabilidadServicio {
+public class HabilidadServicio implements IHabilidadServicio {
 
     @Autowired
     HabilidadRepositorio habRepo;
 
-    /*
-    @Transactional(readOnly = true)
-    public List<Habilidad> listaHab(Long id) throws Exception {
-        return habRepo.listaHab(id);
+    @Override
+    public List<Habilidad> lista() {
+        return habRepo.findAll();
     }
-*/
+
+    @Override
+    public void crear(Habilidad exp) {
+        habRepo.save(exp);
+    }
+
+    @Override
+    public void borrar(Long id) {
+        habRepo.deleteById(id);
+    }
+
+    @Override
+    public Habilidad buscar(Long id) {
+        return habRepo.findById(id).orElse(null);
+    }  
 
 }

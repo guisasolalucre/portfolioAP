@@ -26,11 +26,7 @@ public class Habilidad {
     
     @Column(nullable = false)
     private Double porcentaje;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "persona_id")
-    private Persona persona;
-
+    
     public Habilidad() {
     }
 }

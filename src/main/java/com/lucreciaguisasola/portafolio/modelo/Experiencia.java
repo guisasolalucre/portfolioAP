@@ -41,10 +41,6 @@ public class Experiencia {
 
     @Column(nullable = false)
     private String descripcion;
-    
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "persona_id")
-    private Persona persona;
 
     public Experiencia() {
     }

@@ -6,19 +6,31 @@ import com.lucreciaguisasola.portafolio.repositorios.ExperienciaRepositorio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ExperienciaServicio {
+public class ExperienciaServicio implements IExperienciaServicio{
 
     @Autowired
     ExperienciaRepositorio expRepo;
 
-    /*
-    @Transactional(readOnly = true)
-    public List<Experiencia> listaExp(Long id) throws Exception {
-        return expRepo.listaExp(id);
+    @Override
+    public List<Experiencia> lista() {
+        return expRepo.findAll();
     }
-*/
+
+    @Override
+    public void crear(Experiencia exp) {
+        expRepo.save(exp);
+    }
+
+    @Override
+    public void borrar(Long id) {
+        expRepo.deleteById(id);
+    }
+
+    @Override
+    public Experiencia buscar(Long id) {
+        return expRepo.findById(id).orElse(null);
+    }   
 
 }
