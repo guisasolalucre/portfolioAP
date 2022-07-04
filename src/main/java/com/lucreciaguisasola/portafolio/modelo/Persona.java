@@ -52,8 +52,15 @@ public class Persona {
 
     @Column(nullable = false)
     private String email;
+    
+    @Column(nullable = false)
+    private String usuario;
+    
+    @Column(nullable = false)
+    private String password;
             
     public Persona() {
     }
+
     
 }

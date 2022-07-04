@@ -48,7 +48,7 @@ public class PortafolioControlador {
         personaServ.borrar(id);
     }
     
-    @PutMapping("/editarPersona/{id}")
+    @PutMapping("/editar/{id}")
     public void editarPersona(@PathVariable Long id,
                               @RequestBody Persona personaFinal){
         Persona personaEditar = personaServ.buscar(id);
@@ -160,7 +160,7 @@ public class PortafolioControlador {
     public void editarHabilidad(@PathVariable Long id,
                               @RequestBody Habilidad habFinal){
         Habilidad habEditar = habServ.buscar(id);
-        habEditar.setHabilidad(habFinal.getHabilidad());
+        habEditar.setNombre(habFinal.getNombre());
         habEditar.setPorcentaje(habFinal.getPorcentaje());
         
         habServ.crear(habFinal);

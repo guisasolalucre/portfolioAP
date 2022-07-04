@@ -2,14 +2,11 @@
 package com.lucreciaguisasola.portafolio.modelo;
 
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,7 +19,7 @@ public class Habilidad {
     private Long id;
     
     @Column(nullable = false)
-    private String habilidad;
+    private String nombre;
     
     @Column(nullable = false)
     private Double porcentaje;
