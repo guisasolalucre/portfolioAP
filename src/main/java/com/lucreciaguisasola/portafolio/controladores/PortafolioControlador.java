@@ -48,12 +48,10 @@ public class PortafolioControlador {
         personaServ.borrar(id);
     }
     
-    @PutMapping("/editar/{id}")
+    @PutMapping("/editarPersona/{id}")
     public void editarPersona(@PathVariable Long id,
                               @RequestBody Persona personaFinal){
         Persona personaEditar = personaServ.buscar(id);
-        personaEditar.setNombre(personaFinal.getNombre());
-        personaEditar.setApellido(personaFinal.getApellido());
         personaEditar.setFotoPerfil(personaFinal.getFotoPerfil());
         personaEditar.setFotoPortada(personaFinal.getFotoPortada());
         personaEditar.setAcercade(personaFinal.getAcercade());
